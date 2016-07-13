@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Health Tracker App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <section id="health-tracker-app">
+        <!-- heading section + input -->
+        <header id="heading">
+            <h1>Health-T</h1>
+            <h3>Your Best Calories Tracker</h3>
+            <div class="attribution">Powered by <a href="https://www.nutritionix.com/api">Nutritionix</a></div>
+            <div class="input-section">
+                <input id="search-box" class="search-box" autofocus>
+                <button id="search-button" type="button" class="input-addon">Search</button>
+            </div>
+        </header>
+
+        <main id="main">
+            <div id="search-result-list">
+                <button id="search-result-close-btn" type="button" class="close-list"><span>&times;</span></button>
+                <ul id="search-list"></ul>
+            </div>
+
+            <section id="saved-food-list" tabindex="-1">
+                <h2>Your foods' calories</h2>
+                <table class="saved-list-table">
+                    <thead><tr><th>Total:</th><th id="calorie-total" class="calories">...</th><th class="remove-item"></th></tr></thead>
+                    <tbody id="saved-list"></tbody>
+                </table>
+            </section>
+        </main>
+    </section>
+
+    <!-- Templates -->
+    <!-- Saved Items Template-->
+    <script type="text/templates" id="saved-item-template">
+        <td><span class="brand-name"><%= brand %></span> <span class="food-name"><%= name %></span> (<% (serving_size_qty) ? print('<span class="serving-size">' + serving_size_qty + '</span>&nbsp;<span class="serving-unit">' + serving_size_unit + '</span>') : print('<span class="serving-size">1</span> <span class="serving-unit">serving</span>'); %>)</td><td class="calories" aria-label="<%= calories.toFixed() %> calories"><%= calories.toFixed() %></td><td class="remove-item-cell"><button type="button" class="remove-item" aria-label="Remove food item"><span aria-hidden="true">&times;</span></button></td>
+    </script>
+
+    <!-- Search Items Template-->
+    <script type="text/templates" id="search-item-template">
+        <button type="button" class="save-item">
+            <span class="name-content"><span class="brand-name"><%= brand %></span><span class="food-name"><%= name %></span></span><span class="size-content"><% (serving_size_qty) ? print('<span class="serving-size">' + serving_size_qty + '</span> <span class="serving-unit">' + serving_size_unit + '</span>') : print('<span class="serving-size">1</span> <span class="serving-unit">serving</span>'); %></span></button>
+    </script>
+
+    <!-- jQuery, Underscore, Backbone, Backbone.LocalStorage -->
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
+    <script src="js/lib/backbone.localStorage-min.js"></script>
+
+    <!-- App -->
+    <script src="js/models/food.js"></script>
+    <script src="js/collections/search-list.js"></script>
+    <script src="js/collections/saved-list.js"></script>
+    <script src="js/views/saved-item-view.js"></script>
+    <script src="js/views/search-item-view.js"></script>
+    <script src="js/views/app-view.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
