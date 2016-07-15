@@ -39,7 +39,7 @@ var app = app || {};
       this.$searchListCloseButton = this.$('#search-result-close-btn');
       this.$savedList = this.$('#saved-list');
       this.$savedListContainer = this.$('#saved-food-list');
-      this.$calorieTotal = this.$('#total-calories');
+      this.$totalCalories = this.$('#total-calories');
 
       //the initial text to be placed into the placeholder
       this.$searchInput.prop('placeholder', this.searchFeedbackStrings.Initial);
@@ -58,14 +58,29 @@ var app = app || {};
       //fetch the models from the list that has been saved
       app.savedList.fetch({success: function() {
                               self.fetching = false;
-                              // self.filterTodaysItems();
+                              self.filterTodaysItems();
                             }
                           });
     },
 
     //redner the total calories from the list
     renderTotalCalories: function() {
-      this.$calorieTotal.text(app.savedList.getTotalCalories().toFixed());
+      this.$totalCalories.text(app.savedList.getTotalCalories().toFixed());
+    },
+
+    filterTodaysItems: function() {
+
+      var todaysModels = _.filter(app.savedList.models, function(model) {
+        var date = new Date(model.get('timestamp')).setHours(0, 0, 0, 0);
+        var today = new Date().setHours(0, 0, 0, 0);
+
+        return date == today;
+
+    });
+
+      app.savedList.reset(todaysModels);
+
+      _.each(todaysModels, this.addSavedItem, this);
     },
 
     //adds a view to the saved item for the food that is selected
