@@ -12,4 +12,7 @@
 ## Resources:
 * [backboneJS](http://backbonejs.org/)
 * [JQUERY](https://api.jquery.com/)
+* [underscoreJS](http://underscorejs.org/)
+* [backbone localStorage](http://backbonejs.org/docs/backbone.localStorage.html)
+* [Nutritionix API](https://developer.nutritionix.com/v1_1/quick-start/simple-food-search)
 * [eventBus](https://spin.atomicobject.com/2012/04/16/lets-talk-an-eventbus-in-backbone-js/)
