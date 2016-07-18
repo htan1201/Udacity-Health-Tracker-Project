@@ -3,9 +3,7 @@ var app = app || {};
 (function() {
   'use strict';
 
-  /**
-   * Creates a view for the entire app.
-   */
+  //view for the app
   app.AppView = Backbone.View.extend({
     //chooses the id of the element
     el: '#health-tracker-app',
@@ -20,7 +18,7 @@ var app = app || {};
 
     //feedback strings to be rendered into the input placeholder
     searchFeedbackStrings: {
-      Initial: 'Enter the food that you consumed',
+      Initial: 'Enter the food that you have consumed today',
       Search_In_Progress: 'Search in progress',
       Fail_Attempt: 'Sorry, there is a network error',
       No_Input: 'Enter the food that you consumed'
@@ -35,8 +33,8 @@ var app = app || {};
       //select the elements on the rendered elements
       this.$searchInput = this.$('#search-box');
       this.$searchList = this.$('#search-list');
-      this.$searchListContainer = this.$('#search-result-list');
-      this.$searchListCloseButton = this.$('#search-result-close-btn');
+      this.$searchResultContainer = this.$('#search-result-list');
+      this.$searchResultCloseButton = this.$('#search-result-close-btn');
       this.$savedList = this.$('#saved-list');
       this.$savedListContainer = this.$('#saved-food-list');
       this.$totalCalories = this.$('#total-calories');
@@ -44,11 +42,12 @@ var app = app || {};
       //the initial text to be placed into the placeholder
       this.$searchInput.prop('placeholder', this.searchFeedbackStrings.Initial);
 
+      this.$searchResultCloseButton.hide();
+
       //listening to the elements that have events and do the functions when it has interactions
       this.listenTo(app.searchList, 'remove', this.removeSearchResultList);
       this.listenTo(app.savedList, 'add', this.addSavedItem);
       this.listenTo(app.savedList, 'update', this.renderTotalCalories);
-      // this.listenTo(app.savedList, 'remove', this.focusLastItem);
       this.listenTo(app.savedList, 'reset', this.renderTotalCalories);
       this.listenTo(app.eventBus, 'selectSearchItem', this.selectSearchItem);
 
@@ -66,10 +65,17 @@ var app = app || {};
     //redner the total calories from the list
     renderTotalCalories: function() {
       this.$totalCalories.text(app.savedList.getTotalCalories().toFixed());
+      if((parseInt(app.savedList.getTotalCalories().toFixed()) < 1800) ||
+          (parseInt(app.savedList.getTotalCalories().toFixed()) > 2500))
+        {
+          $(".calories-head").css("background-color", "red");
+        } else {
+          $(".calories-head").css("background-color", "#00FF00");
+        }
     },
 
+    //filter the items to be rendered on the page based on the date in the timestamp of 24 hours
     filterTodaysItems: function() {
-
       var todaysModels = _.filter(app.savedList.models, function(model) {
         var date = new Date(model.get('timestamp')).setHours(0, 0, 0, 0);
         var today = new Date().setHours(0, 0, 0, 0);
@@ -200,13 +206,14 @@ var app = app || {};
       // Add a view for each model.
       _.each(app.searchList.models, this.addSearchItemView, this);
 
-      // Show the list if it's currently hidden.
-      if (this.$searchListContainer.css('display') === 'none') {
-        this.$searchListContainer.show();
+      // Show the list and the close list button if it's currently hidden.
+      if (this.$searchResultContainer.css('display') === 'none') {
+        this.$searchResultCloseButton.show();
+        this.$searchResultContainer.show();
       }
 
       // Put focus into the dialog
-      this.$searchListCloseButton.focus();
+      this.$searchResultCloseButton.focus();
     },
 
     //creates a view for searched item and append it into the element on the list.
@@ -236,7 +243,7 @@ var app = app || {};
     removeSearchResultList: function() {
       app.searchList.reset();
       this.$searchList.empty();
-      this.$searchListContainer.hide();
+      this.$searchResultContainer.hide();
 
       this.$savedListContainer.show();
     },

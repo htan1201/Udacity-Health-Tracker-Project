@@ -1,266 +1,99 @@
-html {
-  height: 100%;
-
-  /* Prevent zooming of text when rotating to landscape. */
-  -webkit-text-size-adjust: 100%; /* iPhone */
-}
-
 body {
-  height: 100%;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 0;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-h1 {
-  font-size: 2rem;
-  margin: 10px 0;
-}
-
-h2 {
-  font-size: 1.4rem;
-  font-weight: normal;
-  padding: 0 10px;
-}
-
-p {
-  margin: 0 0 10px;
-}
-
-.api-attribution {
-  font-size: 0.6rem;
-}
-
-#health-tracker-app {
-  display: -webkit-flex; /* Safari 8 */
-  display: flex;
-  -webkit-flex-direction: column; /* Safari 8 */
-  flex-direction: column;
-  height: 100%;
+  width: 80%;
   margin: 0 auto;
-  max-width: 750px;
-  padding: 0;
-  width: 100%;
+  text-align: center;
+  font-family: 'Fredoka One', sans-serif;
+  background-color: #87CEFA;
 }
 
-#header {
-  margin: 0 10px;
-
-  /* Prevent iOS Safari from pushing #main to shrink this and cause content to overflow. */
-  -webkit-flex-shrink: 0;
+#saved-food-list {
+  width: 60%;
+  margin: 0 auto;
 }
 
-#main {
-  height: 100%;
-  margin: 0 10px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  position: relative;
+table {
+  margin: 0 auto;
 }
 
-button {
-  background-color: #ddd;
-  border-top: 1px solid #a1a1a1;
-  border-right: 1px solid #a1a1a1;
-  border-bottom: 1px solid #a1a1a1;
-  border-left: 1px solid #a1a1a1;
-  cursor: pointer;
+.search-box {
+  width: 40%;
+  height: 20px;
 }
 
-/* Search input */
-
-#search-btn {
-  border-radius: 0 4px 4px 0;
-  padding: 0;
-  width: 40px;
+.cal1 {
+  color: tomato;
 }
 
-/* Derived from Bootstrap styling */
-input {
-  background-color: #fff;
-  background-image: none;
-  border-radius: 4px 0 0 4px;
-  border: 1px solid #ccc;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  color: #555;
-  display: block;
-  font-family: inherit;
-  font-size: 16px; /* 16px+ to prevent zoom behaviour on iPhone */
-  height: 34px;
-  line-height: 1.42857143;
-  padding: 6px 12px;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  width: 100%;
+.cal2 {
+  color: #00FF00;
 }
 
-input:focus {
-  border-color: #66afe9;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-}
-
-.has-error input {
-  border-color: #a32929;
-}
-
-.has-error input:focus {
-  box-shadow: 0 0 14px #a32929;
-}
-
-.has-error input::-webkit-input-placeholder { /* Chrome, Safari, Edge (alias) */
-  color: #c87878;
-}
-
-.has-error input::-moz-placeholder { /* Firefox */
-  color: #c87878;
-}
-
-.has-error input:-ms-input-placeholder { /* IE */
-  color: #c87878;
-}
-
-.input-group {
-  display: -webkit-flex; /* Safari 8 */
-  display: flex;
-  -webkit-justify-content: center; /* Safari 8 */
-  justify-content: center;
+.input-section {
   margin-top: 20px;
 }
 
-
-
-
-/* Saved list */
-
-#saved-list-container {
-  width: 100%;
+a {
+    text-decoration: none;
 }
 
-.saved-list-table {
-  border-collapse: collapse;
-  width: 100%;
+.search-icon {
+  font-size: 1.5em;
 }
 
-.saved-list-table td {
-  border-bottom: 1px solid #ddd;
-  border-top: 1px solid #ddd;
-  padding: 8px 10px;
-}
-
-.saved-list-table th {
-  border: none;
-  font-size: 1.4rem;
-  padding: 10px;
-  text-align: right;
-}
-
-.saved-list-table .calories {
-  text-align: right;
-}
-
-.remove-item {
-  background: none;
-  border: none;
-  color: #ddd;
-  font-size: 40px;
-  font-weight: 700;
-  padding: 0;
-  width: 40px;
-}
-
-td.remove-item-cell {
-  vertical-align: middle;
-}
-
-.brand-name {
-  font-style: italic;
-}
-
-
-/* Search list */
-
-#search-list-container {
-  background: #fff;
-  display: none;
-  position: absolute;
-  width: 100%;
-  z-index: 2;
+#search-button {
+  width: 30px;
+  padding: 2px 2px;
+  background-color: #00FF00;
+  border: 1px solid;
+  border-radius: 50%;
 }
 
 #search-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0 0 20px;
+  margin-top: 0px;
+  padding: 0;
 }
 
-.search-list-item {
-  border: 1px solid #ddd;
-  margin-bottom: -1px;
-}
-
-.search-list-item:last-child {
-  border-radius: 0 0 4px 4px;
-}
-
-.name-content {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.size-content {
-  display: block;
-}
-
-.save-item { /* Main wrapping button */
-  background: none;
-  border: none;
-  font-family: inherit;
-  font-size: 0.90rem;
-  height: 100%;
-  margin: 0;
-  padding: 10px;
-  text-align: left;
+li {
+  list-style: none;
   width: 100%;
+}
+
+.result-item,
+.close-list {
+  width: 50%;
+  background-color: #00FF00;
+  border: 1px solid;
+  font-size: 14px;
+  border-radius: 10px;
 }
 
 .close-list {
-  border-radius: 4px 4px 0 0;
-  border: none;
-  color: #8c8c8c;
-  font-size: 21px;
-  font-weight: 700;
-  margin-top: 10px;
-  padding: 0;
-  width: 100%;
+  background-color: black;
+  color: white;
 }
 
+.result-item:hover {
+  background-color: red;
+}
 
+.saved-item-list,
+.calories {
+  background-color: #00FF00;
+  border: 1px solid;
+  border-radius: 10px;
+}
 
+.remove-item {
+  background-color: red;
+  border: 1px solid;
+  border-radius: 50%;
+}
 
+.remove-item-head {
+  display:none;
+}
 
-/* Large screen overrides */
-
-@media screen and (min-width: 600px) {
-  #health-tracker-app {
-    -webkit-flex-direction: row;  /* Safari 8 */
-    flex-direction: row;
-    -webkit-justify-content: center; /* Safari 8 */
-    justify-content: center;
-  }
-
-  .input-group {
-    min-width: 200px;
-  }
-
-  #header {
-    -webkit-flex-basis: 40%; /* Safari 8 */
-    flex-basis: 40%;
-  }
-
-  #main {
-    -webkit-flex-basis: 50%; /* Safari 8 */
-    flex-basis: 50%;
-  }
+.calories-head {
+  border-radius: 50%;
+  padding: 8px;
 }
