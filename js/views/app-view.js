@@ -65,12 +65,22 @@ var app = app || {};
     //redner the total calories from the list
     renderTotalCalories: function() {
       this.$totalCalories.text(app.savedList.getTotalCalories().toFixed());
-      if((parseInt(app.savedList.getTotalCalories().toFixed()) < 1800) ||
-          (parseInt(app.savedList.getTotalCalories().toFixed()) > 2500))
+      if((parseInt(app.savedList.getTotalCalories().toFixed()) < 1800))
         {
+          $(".tips").empty();
           $(".calories-head").css("background-color", "red");
+          $(".tips").css("color", "red");
+          $(".tips").append("You have not meet the ideal calories for today!! EAT MORE!!");
+        } else if ((parseInt(app.savedList.getTotalCalories().toFixed()) > 2500)){
+          $(".tips").empty();
+          $(".calories-head").css("background-color", "red");
+          $(".tips").css("color", "red");
+          $(".tips").append("You have eaten too much!!! STOP EATING!!!");
         } else {
+          $(".tips").empty();
           $(".calories-head").css("background-color", "#00FF00");
+          $(".tips").css("color", "#00FF7F");
+          $(".tips").append("Congratulations!! You are on your ideal calories intake for today!!");
         }
     },
 
