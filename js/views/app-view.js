@@ -67,20 +67,25 @@ var app = app || {};
       this.$totalCalories.text(app.savedList.getTotalCalories().toFixed());
       if((parseInt(app.savedList.getTotalCalories().toFixed()) < 1800))
         {
+          //empty the element
           $(".tips").empty();
-          $(".calories-head").css("background-color", "red");
+          //changes its text-color to red
           $(".tips").css("color", "red");
+          //append the new text
           $(".tips").append("You have not meet the ideal calories for today!! EAT MORE!!");
+          //changes the background color of the total calories
+          $(".calories-head").css("background-color", "red");
+
         } else if ((parseInt(app.savedList.getTotalCalories().toFixed()) > 2500)){
           $(".tips").empty();
-          $(".calories-head").css("background-color", "red");
           $(".tips").css("color", "red");
           $(".tips").append("You have eaten too much!!! STOP EATING!!!");
+          $(".calories-head").css("background-color", "red");
         } else {
           $(".tips").empty();
-          $(".calories-head").css("background-color", "#00FF00");
           $(".tips").css("color", "#00FF7F");
           $(".tips").append("Congratulations!! You are on your ideal calories intake for today!!");
+          $(".calories-head").css("background-color", "#00FF00");
         }
     },
 
@@ -160,8 +165,8 @@ var app = app || {};
                         url: 'https://api.nutritionix.com/v1_1/search/' + value,
                         dataType: 'json',
                         data: {
-                          appId: '30fc0f57',
-                          appKey: '847b2a751b496a8e6e8c3a2d4f5bc20d',
+                          appId: '3c60e30a',
+                          appKey: '9a3f9ef3bb627433051d6923f6717deb',
                           results: '0:20',
                           fields: '*'
                         }
